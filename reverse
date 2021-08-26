@@ -1,0 +1,153 @@
+// Print File Content in Reverse Order
+// ----codescracker.com----
+
+#include<stdio.h>
+#include<conio.h>
+int main()
+{
+    FILE *fp;
+    char ch, fname[30], newch[500];
+    int i=0, j, COUNT=0;
+    printf("Enter the filename with extension: ");
+    gets(fname);
+    fp = fopen(fname, "r");
+    if(!fp)
+    {
+        printf("Error in opening the file...\nExiting...");
+        getch();
+        return 0;
+    }
+    printf("\nThe original content is:\n\n");
+    ch = getc(fp);
+    while(ch != EOF)
+    {
+        COUNT++;
+        putchar(ch);
+        newch[i] = ch;
+        i++;
+        ch = getc(fp);
+    }
+    printf("\n\n\n");
+    printf("The content in reverse order is:\n\n");
+    for(j=(COUNT-1); j>=0; j--)
+    {
+        ch = newch[j];
+        printf("%c", ch);
+    }
+    printf("\n");
+    getch();
+    return 0;
+}
+
+ 
+The above program was written under Code::Blocks IDE, therefore after successful build and run, here is the sample run:
+
+This program will ask from user to enter any filename along with its extension that present inside the current directory (where the above source code is saved). Because we have already created a file named codescracker.txt, and placed it inside the current directory. Therefore we can operate on that file for practical purpose to see how the output of above program works:
+
+print file content in reverse order c
+Now supply the name of the file that is created earlier say codescracker.txt and press ENTER key to see the content in original order first and then the same content in reverse order at last of the output as shown here:
+
+file content in reverse order c
+Program Explained
+Receive name of the file along with its extension
+Now open the file using fopen() function and initialize it to any FILE pointer say fp
+The function fopen() takes two argument, the first argument takes name of file with extension (that is going to operate), \ and the second argument or parameter tells in which mode the file is going to be opened
+If file does not exist or any error while opening the file, print the error message and exit from the program
+Otherwise, if file gets opened successfully, therefore process the next step to operate the file, that is prints its content in reverse order
+First print the content of file in original order (as it is)
+To do this, get first character of the file, using fgetc() function and initialize the first character to any variable say ch. Here the function fgetc() takes one argument that will be file pointer say fp. Here fp is the file pointer of entered filename by user at run-time say codescracker.txt
+Whenever you called fp, the content of file named codescracker.txt gets called using pointer
+Create a while loop that runs until End-Of-File (EOF) gets reached
+That is, we have to apply the while loop's condition statement as ch != EOF. It states that, the loop gets runned until the value of ch gets equal to EOF. The value of EOF is -1
+EOF indicates that nothing left inside the file, or no any content left inside the file
+Inside the while loop, we have a variable say COUNT (initialized with 0 at start of the program) that counts total number of character present inside the file
+Use putchar() function to put the character on output screen. That is putchar(ch) puts the value of ch on output screen
+Now initialize the value of ch in an array say newch[]. Indexing of this array must starts with 0, therefore we have already initialized a variable say i with 0 at start of the program, therefore we have used newch[i] = ch; statement first time inside the while loop's first run. That is at first run of the loop, ch gets initialized newch[0] and at second run, new value of ch gets initialized to newch[1], and so on, therefore we have incremented the value of i after initializing the value of ch to initialize next value of ch at next index of the array
+Never forgot to get next character using getc() function. Therefore we have initialized getc(fp) to ch at last of the loop
+In this way, we have printed the content of file (as it is) in original order
+Now create another loop (for loop this time) to print the content of file in reverse order
+As we have an array named newch[] that contains all the characters of file (characters of file, means content of file). And we have a variable named COUNT that holds the length of file's content, or total number of character present inside the given file
+Now to print content of file in reverse order, just create a for loop, that runs from COUNT-1 to 0
+We have started the loop with last index of the array
+That is we have printed last character at first and first character at last to print the file content in reverse order
+For example, if content of the file is this is codescracker, therefore here are the list of step-by-step dry-run of the while loop. Here the value of COUNT gets incremented each time when the program flow goes inside the loop, character or value of ch gets printed each time, character gets initialized one by one to the array named newch[], the value of variable i gets incremented each time, and next character gets scanned using ch = getc(fp); statement as shown in the list of dry-run given below. We have scanned the first character of the file's content using ch = getc(fp); statement before going to the while loop, therefore t gets initialized to ch before first run of the while loop:
+At first run of the while loop:
+The value of COUNT becomes 1
+t gets printed on output
+t gets initialized to newch[0]
+The value of i becomes 1
+h gets initialized to ch
+At second run of the while loop:
+The value of COUNT becomes 2
+h gets printed on output
+h gets initialized to newch[1] The value of i becomes 2
+i gets initialized to ch
+At third run of the while loop:
+The value of COUNT becomes 3
+i gets printed on output
+i gets initialized to newch[2] The value of i becomes 3
+s gets initialized to ch
+..........
+At twentieth run of the while loop:
+The value of COUNT becomes 20
+r gets printed on output
+r gets initialized to newch[19] The value of i becomes 20
+EOF (-1) gets initialized to ch
+Therefore to print the content of file in reverse order, we have to print the array's content starts from last index
+That is, COUNT-1 or 20-1 or 19 gets initialized to j (loop variable), as 19 is greater than or equal to 0, therefore program flow goes inside the for loop, and newch[j] or newch[19] or r gets initialized to ch. And the value of ch gets printed
+In this way, all the content of file gets printed in reverse order
+Print Current File's Content in Reverse Order
+If you want to print the content of current file (to which you are writting the current program say codescracker.c), then we have to increase the size of array say newch[] because as the code given above may be more than 500 characters. Therefore, increase the size and make it to 5000 that is newch[5000].
+
+Note - Never fogot to save the file before run and enter the current file name to print its content in reverse order.
+
+ 
+Let me create a program for you to check for current file. This program will ask from user to enter the file name with extension, and will print the file in reverse order. You can enter any filename with extension. But here we will check for the current file.
+
+// Print Current File Content in Reverse Order
+// ----codescracker.com---
+
+#include<stdio.h>
+#include<conio.h>
+int main()
+{
+    FILE *fp;
+    char ch, fname[30], newch[5000];
+    int i=0, j, COUNT=0;
+    printf("Enter the filename with extension: ");
+    gets(fname);
+    fp = fopen(fname, "r");
+    if(!fp)
+    {
+        getch();
+        return 0;
+    }
+    ch = getc(fp);
+    while(ch != EOF)
+    {
+        COUNT++;
+        newch[i] = ch;
+        i++;
+        ch = getc(fp);
+    }
+    printf("\n");
+    printf("The content in reverse order is:\n\n");
+    for(j=(COUNT-1); j>=0; j--)
+    {
+        ch = newch[j];
+        printf("%c", ch);
+    }
+    getch();
+    return 0;
+}
+Here is the final snapshot of the sample run:
+
+c print content of file in reverse order
+C Online Test
+
+« C TutorialC Examples »
+FacebookWhatsAppTwitterShare
+ 
+ 
+
+ 
